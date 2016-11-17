@@ -15,6 +15,8 @@ namespace LinkSaver.Data
         {
         }
 
+        public DbSet<Link> Links { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
