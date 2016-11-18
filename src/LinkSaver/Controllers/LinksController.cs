@@ -63,18 +63,18 @@ namespace LinkSaver.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LinkId,category,url")] Link link)
+        public async Task<IActionResult> Create([Bind("category, url")] LinkCreationViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                await _linkRepository.AddLinkToDatabaseAsync(link);
+                await _linkRepository.AddLinkToDatabaseAsync(viewModel);
                 if (Request.IsAjaxRequest())
                 {
                     return PartialView("Index", await _linkRepository.AllLinksToListAsync());
                 }
                 return RedirectToAction("Index");
             }
-            return View(link);
+            return View(viewModel);
         }
 
         // GET: Links/Edit/5

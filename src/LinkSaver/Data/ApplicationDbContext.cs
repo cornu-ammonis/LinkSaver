@@ -16,6 +16,7 @@ namespace LinkSaver.Data
         }
 
         public DbSet<Link> Links { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,6 +24,10 @@ namespace LinkSaver.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+            builder.Entity<Link>()
+                .HasOne(l => l.category)
+                .WithMany(c => c.Links);
+
         }
     }
 }
