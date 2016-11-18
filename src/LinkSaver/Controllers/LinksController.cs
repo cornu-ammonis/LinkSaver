@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LinkSaver.Data;
 using LinkSaver.Models;
+using myExtensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LinkSaver.Controllers
 {
+    [Authorize]
     public class LinksController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,9 +25,14 @@ namespace LinkSaver.Controllers
         }
 
         // GET: Links
+      
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Links.ToListAsync());
+            if(User.Identity.Name != "admin5@gmail.com")
+            {
+                return View("Blank");
+            }
+            return View(await _linkRepository.AllLinksToListAsync());
         }
 
         // GET: Links/Details/5
@@ -47,7 +55,7 @@ namespace LinkSaver.Controllers
         // GET: Links/Create
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Links/Create
@@ -60,6 +68,10 @@ namespace LinkSaver.Controllers
             if (ModelState.IsValid)
             {
                 await _linkRepository.AddLinkToDatabaseAsync(link);
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView("Index", await _linkRepository.AllLinksToListAsync());
+                }
                 return RedirectToAction("Index");
             }
             return View(link);

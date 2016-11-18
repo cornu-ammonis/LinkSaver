@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-LinkSaver-15b46fb3-af8e-414e-82f5-c7bb6e61402a",
 
   "dependencies": {
@@ -41,10 +41,13 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc":  {
+    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "HtmlAgilityPack": "1.4.9.5",
+    "Microsoft.jQuery.Unobtrusive.Ajax": "3.2.3",
+    "jQuery.Ajax.Unobtrusive": "2.0.20710"
   },
 
   "tools": {

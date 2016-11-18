@@ -10,7 +10,7 @@ namespace LinkSaver.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Links");
         }
 
         public IActionResult About()

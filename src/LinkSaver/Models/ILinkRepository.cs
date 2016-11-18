@@ -10,5 +10,10 @@ namespace LinkSaver.Models
         Task AddLinkToDatabaseAsync(Link link);
         Task DeleteLinkFromDatabaseAsync(int id);
 
+        Task<string> RetrieveTitleFromPageAsync(string url);
+
+        string prependUrl(string unprocessed_url);
+
+        Task<List<Link>> AllLinksToListAsync();
     }
 }
