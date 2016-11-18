@@ -1,0 +1,48 @@
+@model LinkSaver.Models.LinkViewModels.CategoryLinkViewModel
+
+@{
+    ViewData["Title"] = "Category: " + Model.category.Name;
+}
+<div id="content">
+    <h2>@Model.Links.Count.ToString() + "Links found for category" + @Model.category.Name</h2>
+    <div id="creatediv">
+        <p>
+            <a asp-action="Create" data-ajax="true" data-ajax-mode="replace-with" data-ajax-update="#creatediv">
+                Create New
+            </a>
+        </p>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+               
+                <th>
+                    title
+                </th>
+                <th>
+                    url
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Links)
+            {
+                <tr>
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.title)
+                    </td>
+                    <td>
+                        <a href="@item.url">@item.url</a>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LinkId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LinkId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LinkId">Delete</a>
+            </td>
+        </tr>
+            }
+        </tbody>
+    </table>
+</div>

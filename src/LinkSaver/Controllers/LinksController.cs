@@ -35,6 +35,14 @@ namespace LinkSaver.Controllers
             return View(await _linkRepository.AllLinksToListAsync());
         }
 
+        // GET: Links by category
+        public async Task<IActionResult> Category(string slug)
+        {
+            List<Link> viewModel = await _linkRepository.LinksByCategoryToListAsync(slug);
+            
+            return View(viewModel);
+        }
+
         // GET: Links/Details/5
         public async Task<IActionResult> Details(int? id)
         {

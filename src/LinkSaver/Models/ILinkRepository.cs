@@ -12,6 +12,8 @@ namespace LinkSaver.Models
         Task DeleteLinkFromDatabaseAsync(int id);
 
         Task<Category> CreateOrRetrieveCategoryByName(string name);
+        Task<Category> RetrieveCategoryBySlugAsync(string slug);
+        Category RetrieveCategoryBySlug(string slug);
         Task<string> RetrieveTitleFromPageAsync(string url);
 
         void AddOrUpdateCategory(Category category);
@@ -20,5 +22,6 @@ namespace LinkSaver.Models
 
         Task<List<Link>> AllLinksToListAsync();
         Task<List<Link>> LinksByCategoryToListAsync(string categorySlug);
+        List<Link> LinksByCategoryToList(string categorySlug);
     }
 }
