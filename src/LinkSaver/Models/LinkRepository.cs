@@ -43,7 +43,14 @@ namespace LinkSaver.Models
         {
             Link link = new Link();
             link.url = linkCreationModel.url;
-            link.category = await CreateOrRetrieveCategoryByName(linkCreationModel.category);
+
+            //if user doesnt enter a category name
+            if (linkCreationModel.category == null)
+            {
+                linkCreationModel.category = "uncategorized";
+            }
+
+                link.category = await CreateOrRetrieveCategoryByName(linkCreationModel.category);
             link.category.Links.Add(link);
             link.title = await RetrieveTitleFromPageAsync(link.url);
             AddOrUpdateCategory(link.category);
