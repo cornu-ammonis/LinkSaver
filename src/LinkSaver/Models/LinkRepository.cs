@@ -24,6 +24,17 @@ namespace LinkSaver.Models
             return await _context.Links.Include<Link, Category>(l => l.category).ToListAsync();
         }
 
+        async public Task<List<Link>> LinksByCategoryToListAsync(string categorySlug)
+        {
+            List<Link> categoryLinks = await
+                (from l in _context.Links
+                 where l.category.UrlSlug == categorySlug
+                 orderby l.LinkId descending //should return most recent links first
+                 select l).Include<Link, Category>(l => l.category).ToListAsync();
+
+            return categoryLinks;
+        }
+
         async public Task DeleteLinkFromDatabaseAsync(int id)
         {
             var link = await _context.Links.SingleOrDefaultAsync(m => m.LinkId == id);

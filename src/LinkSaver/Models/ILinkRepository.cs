@@ -19,5 +19,6 @@ namespace LinkSaver.Models
         string prependUrl(string unprocessed_url);
 
         Task<List<Link>> AllLinksToListAsync();
+        Task<List<Link>> LinksByCategoryToListAsync(string categorySlug);
     }
 }
