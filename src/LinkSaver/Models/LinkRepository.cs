@@ -72,9 +72,9 @@ namespace LinkSaver.Models
                 linkCreationModel.category = "uncategorized";
             }
 
-                link.category = await CreateOrRetrieveCategoryByName(linkCreationModel.category);
+            link.category = await CreateOrRetrieveCategoryByName(linkCreationModel.category);
             link.category.Links.Add(link);
-            link.title = await RetrieveTitleFromPageAsync(link.url);
+            link.title = await RetrieveTitleFromPageAsync(link.prependUrl());
             AddOrUpdateCategory(link.category);
            _context.Links.Add(link);
            
@@ -139,12 +139,12 @@ namespace LinkSaver.Models
             }
         }
 
-        async public Task<string> RetrieveTitleFromPageAsync(string url)
+        async public Task<string> RetrieveTitleFromPageAsync(string prependedUrl)
         {
             string title;
             HttpClient client = new HttpClient();
             client.Timeout = new TimeSpan(0, 0, 10);
-            Uri uri = new Uri(prependUrl(url));
+            Uri uri = new Uri(prependedUrl);
             var t = await client.GetAsync(uri);
             if(t.IsSuccessStatusCode)
             {

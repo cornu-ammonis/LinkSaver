@@ -8,8 +8,8 @@
     <div id="creatediv">
         <p>
             <a asp-action="Create" data-ajax="true" data-ajax-mode="replace-with" data-ajax-update="#creatediv">
-                Create New
-            </a>
+                +
+            </a> Add Link
         </p>
     </div>
     <table class="table">
@@ -28,17 +28,17 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (Link item in Model)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.category.Name)
+                       <a asp-action="Category" asp-route-slug="@item.category.UrlSlug">@item.category.Name</a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.title)
                     </td>
                     <td>
-                        <a href="@item.url">@item.url</a>
+                        <a href="@item.prependUrl()">@item.url</a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.LinkId">Edit</a> |

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Category: " + Model.category.Name;
 }
 <div id="content">
-    <h2>@Model.Links.Count.ToString() + "Links found for category" + @Model.category.Name</h2>
+    <h2>@Model.Links.Count.ToString() links found for category "@Model.category.Name"</h2>
     <div id="creatediv">
         <p>
             <a asp-action="Create" data-ajax="true" data-ajax-mode="replace-with" data-ajax-update="#creatediv">

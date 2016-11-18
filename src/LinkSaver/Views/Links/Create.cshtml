@@ -4,11 +4,10 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
 
 <form asp-action="Create" >
     <div class="form-horizontal">
-        <h4>Link</h4>
+        <h4>Create Link</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
@@ -44,7 +43,8 @@
 </form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" data-ajax="true" data-ajax-mode="replace-with" data-ajax-update="#content"
+       >-</a> Hide Link Creation
 </div>
 
 @section Scripts {

@@ -11,5 +11,16 @@ namespace LinkSaver.Models
         public string url { get; set; }
         public string title { get; set; }
         public Category category { get; set; }
+
+        public string prependUrl()
+        {
+            string prependedUrl = url.ToLower();
+            if (!prependedUrl.Contains(@"http://") && !prependedUrl.Contains(@"https://"))
+            {
+                prependedUrl = "http://" + prependedUrl;
+            }
+            return prependedUrl;
+
+        }
     }
 }
