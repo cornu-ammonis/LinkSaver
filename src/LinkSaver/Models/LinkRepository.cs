@@ -88,17 +88,29 @@ namespace LinkSaver.Models
 
         async public Task<string> RetrieveTitleFromPageAsync(string url)
         {
+            string title;
             HttpClient client = new HttpClient();
+            client.Timeout = new TimeSpan(0, 0, 10);
             Uri uri = new Uri(prependUrl(url));
-            string body = await client.GetStringAsync(uri);
+            var t = await client.GetAsync(uri);
+            if(t.IsSuccessStatusCode)
+            {
+                string body = await t.Content.ReadAsStringAsync();
+                var html = new HtmlDocument();
+                html.LoadHtml(body);
 
-            var html = new HtmlDocument();
-            html.LoadHtml(body);
-
-            html.OptionFixNestedTags = true;
-            var s = html.DocumentNode.Descendants("title").SingleOrDefault();
-            string title = s.InnerText;
+                html.OptionFixNestedTags = true;
+                var s = html.DocumentNode.Descendants("title").SingleOrDefault();
+                 title = s.InnerText;
+                
+            }
+            else
+            {
+                title = "unable to retrieve page title";
+            }
+            //string body = await client.GetStringAsync(uri);
             return title;
+
         }
 
         public string prependUrl(string url)
