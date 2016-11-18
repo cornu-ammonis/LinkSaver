@@ -104,6 +104,18 @@ namespace LinkSaver.Models
             
         }
 
+        async public Task<Category> RetrieveCategoryBySlugAsync(string slug)
+        {
+            if(await _context.Categories.AnyAsync(c => c.UrlSlug == slug))
+            {
+                return await _context.Categories.SingleAsync(c => c.UrlSlug == slug);
+            }
+            else
+            {
+                throw new InvalidOperationException("Category not found");
+            }
+        }
+
         async public Task<string> RetrieveTitleFromPageAsync(string url)
         {
             string title;
