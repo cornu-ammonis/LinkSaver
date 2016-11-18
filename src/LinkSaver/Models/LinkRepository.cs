@@ -153,8 +153,17 @@ namespace LinkSaver.Models
                 html.LoadHtml(body);
 
                 html.OptionFixNestedTags = true;
+                
                 var s = html.DocumentNode.Descendants("title").SingleOrDefault();
-                 title = s.InnerText;
+                if(s == null)
+                {
+                    title = "no title";
+                }
+                else
+                {
+                    title = s.InnerText;
+                }
+              
                 
             }
             else

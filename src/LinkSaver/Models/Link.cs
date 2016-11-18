@@ -14,8 +14,8 @@ namespace LinkSaver.Models
 
         public string prependUrl()
         {
-            string prependedUrl = url.ToLower();
-            if (!prependedUrl.Contains(@"http://") && !prependedUrl.Contains(@"https://"))
+            string prependedUrl = url;
+            if (!prependedUrl.ToLower().Contains(@"http://") && !prependedUrl.ToLower().Contains(@"https://"))
             {
                 prependedUrl = "http://" + prependedUrl;
             }
