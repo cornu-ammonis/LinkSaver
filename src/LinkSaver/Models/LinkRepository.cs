@@ -34,6 +34,17 @@ namespace LinkSaver.Models
 
             return categoryLinks;
         }
+        
+        public List<Link> LinksByCategoryToList(string categorySlug)
+        {
+            List<Link> categoryLinks = 
+              (from l in _context.Links
+               where l.category.UrlSlug == categorySlug
+               orderby l.LinkId descending //should return most recent links first
+                 select l).Include<Link, Category>(l => l.category).ToList();
+
+            return categoryLinks;
+        }
 
         async public Task DeleteLinkFromDatabaseAsync(int id)
         {
@@ -109,6 +120,18 @@ namespace LinkSaver.Models
             if(await _context.Categories.AnyAsync(c => c.UrlSlug == slug))
             {
                 return await _context.Categories.SingleAsync(c => c.UrlSlug == slug);
+            }
+            else
+            {
+                throw new InvalidOperationException("Category not found");
+            }
+        }
+
+        public Category RetrieveCategoryBySlug(string slug)
+        {
+            if(_context.Categories.Any(c => c.UrlSlug == slug))
+            {
+                return _context.Categories.Single(c => c.UrlSlug == slug);
             }
             else
             {
