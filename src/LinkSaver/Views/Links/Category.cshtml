@@ -1,44 +1,40 @@
-@model IEnumerable<LinkSaver.Models.Link>
+@model LinkSaver.Models.LinkViewModels.CategoryLinkViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Category: " + Model.category.Name;
 }
 <div id="content">
-    <h2>Index</h2>
+    <h2>@Model.Links.Count.ToString() links found for category "@Model.category.Name"</h2>
     <div id="creatediv">
         <p>
             <a asp-action="Create" data-ajax="true" data-ajax-mode="replace-with" data-ajax-update="#creatediv">
-                +
-            </a> Add Link
+                Create New
+            </a>
         </p>
     </div>
     <table class="table">
         <thead>
             <tr>
+               
                 <th>
-                    @Html.DisplayNameFor(model => model.category)
+                    title
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.url)
+                    url
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (Link item in Model)
+            @foreach (var item in Model.Links)
             {
                 <tr>
-                    <td>
-                       <a asp-action="Category" asp-route-slug="@item.category.UrlSlug">@item.category.Name</a>
-                    </td>
+                    
                     <td>
                         @Html.DisplayFor(modelItem => item.title)
                     </td>
                     <td>
-                        <a href="@item.prependUrl()">@item.url</a>
+                        <a href="@item.url">@item.url</a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.LinkId">Edit</a> |

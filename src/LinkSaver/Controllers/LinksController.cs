@@ -9,6 +9,7 @@ using LinkSaver.Data;
 using LinkSaver.Models;
 using myExtensions;
 using Microsoft.AspNetCore.Authorization;
+using LinkSaver.Models.LinkViewModels;
 
 namespace LinkSaver.Controllers
 {
@@ -32,7 +33,23 @@ namespace LinkSaver.Controllers
             {
                 return View("Blank");
             }
-            return View(await _linkRepository.AllLinksToListAsync());
+            if(Request.IsAjaxRequest())
+            {
+                return PartialView(await _linkRepository.AllLinksToListAsync());
+            }
+            else
+            {
+                return View(await _linkRepository.AllLinksToListAsync());
+            }
+            
+        }
+
+        // GET: Links by category
+        public async Task<IActionResult> Category(string slug)
+        {
+            CategoryLinkViewModel viewModel = new CategoryLinkViewModel(_linkRepository, slug);
+            
+            return View(viewModel);
         }
 
         // GET: Links/Details/5
