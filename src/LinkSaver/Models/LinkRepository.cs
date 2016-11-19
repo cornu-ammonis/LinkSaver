@@ -145,31 +145,40 @@ namespace LinkSaver.Models
             HttpClient client = new HttpClient();
             client.Timeout = new TimeSpan(0, 0, 10);
             Uri uri = new Uri(prependedUrl);
-            var t = await client.GetAsync(uri);
-            if(t.IsSuccessStatusCode)
+            HttpResponseMessage t;
+            try
             {
-                string body = await t.Content.ReadAsStringAsync();
-                var html = new HtmlDocument();
-                html.LoadHtml(body);
-
-                html.OptionFixNestedTags = true;
-                
-                var s = html.DocumentNode.Descendants("title").SingleOrDefault();
-                if(s == null)
+                 t = await client.GetAsync(uri);
+                if (t.IsSuccessStatusCode)
                 {
-                    title = "no title";
+                    string body = await t.Content.ReadAsStringAsync();
+                    var html = new HtmlDocument();
+                    html.LoadHtml(body);
+
+                    html.OptionFixNestedTags = true;
+
+                    var s = html.DocumentNode.Descendants("title").SingleOrDefault();
+                    if (s == null)
+                    {
+                        title = "no title";
+                    }
+                    else
+                    {
+                        title = s.InnerText;
+                    }
+
+
                 }
                 else
                 {
-                    title = s.InnerText;
+                    title = "unable to retrieve page title";
                 }
-              
-                
-            }
-            else
+            }  
+            catch(Exception e)
             {
-                title = "unable to retrieve page title";
+                title = "timed out: unable to retrieve title";
             }
+           
             //string body = await client.GetStringAsync(uri);
             return title;
 
