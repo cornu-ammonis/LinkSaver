@@ -21,7 +21,6 @@
     "HtmlAgilityPack": "1.4.9.5",
     "Microsoft.jQuery.Unobtrusive.Ajax": "3.2.3",
     "jQuery.Ajax.Unobtrusive": "2.0.20710",
-    "Microsoft.ApplicationInsights.AspNetCore": "1.0.2",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.1.0",
@@ -47,7 +46,9 @@
       "version": "1.1.0",
       "type": "platform"
     },
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
+    "NUnit": "3.5.0",
+    "Microsoft.ApplicationInsights.AspNetCore": "1.0.2"
   },
 
   "tools": {
