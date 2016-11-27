@@ -2,10 +2,6 @@
   "userSecretsId": "aspnet-LinkSaver-15b46fb3-af8e-414e-82f5-c7bb6e61402a",
 
   "dependencies": {
-    "Microsoft.AspNetCore.Razor.Tools": {
-      "version": "1.0.0-preview2-final",
-      "type": "build"
-    },
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
@@ -47,7 +43,11 @@
       "version": "1.1.0",
       "type": "platform"
     },
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
+    "Microsoft.AspNetCore.Razor.Tools": {
+      "version": "1.0.0-preview2-final",
+      "type": "build"
+    }
   },
 
   "tools": {
