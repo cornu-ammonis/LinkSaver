@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LinkSaver", "src\LinkSaver\LinkSaver.xproj", "{DEAB220C-E164-498E-B64D-E240B816E8D4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C02D9DE6-4B9C-4FF1-80AC-6AEDBBF23F17}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "testLibrary", "testLibrary\testLibrary.xproj", "{39519DCF-D082-41C9-AE7A-4944C7ECEF15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +26,16 @@ Global
 		{DEAB220C-E164-498E-B64D-E240B816E8D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEAB220C-E164-498E-B64D-E240B816E8D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEAB220C-E164-498E-B64D-E240B816E8D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39519DCF-D082-41C9-AE7A-4944C7ECEF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39519DCF-D082-41C9-AE7A-4944C7ECEF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39519DCF-D082-41C9-AE7A-4944C7ECEF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39519DCF-D082-41C9-AE7A-4944C7ECEF15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DEAB220C-E164-498E-B64D-E240B816E8D4} = {D2DB35FE-4650-4EBC-BD6C-161326AD3FB7}
+		{39519DCF-D082-41C9-AE7A-4944C7ECEF15} = {C02D9DE6-4B9C-4FF1-80AC-6AEDBBF23F17}
 	EndGlobalSection
 EndGlobal
