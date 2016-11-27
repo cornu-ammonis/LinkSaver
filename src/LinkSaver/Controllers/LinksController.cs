@@ -34,20 +34,21 @@ namespace LinkSaver.Controllers
         public async Task<IActionResult> Index()
         {
             ApplicationUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-            _userManager.
 
-            if (User.Identity.Name != "admin5@gmail.com")
+
+            /*if (User.Identity.Name != "admin5@gmail.com")
             {
                 return View("Blank");
-            }
+            }*/
+            IList<Link> viewModel = await _linkRepository.AllLinksToListAsync(user);
             if(Request.IsAjaxRequest())
             {
                
-                return PartialView(await _linkRepository.AllLinksToListAsync());
+                return PartialView(viewModel);
             }
             else
             {
-                return View(await _linkRepository.AllLinksToListAsync());
+                return View(viewModel);
             }
             
         }
@@ -88,7 +89,7 @@ namespace LinkSaver.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("category, url")] LinkCreationViewModel viewModel)
+        public async Task<IActionResult> Create([Bind("category, url, IsPublic")] LinkCreationViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +98,7 @@ namespace LinkSaver.Controllers
                 await _userManager.UpdateAsync(user);
                 if (Request.IsAjaxRequest())
                 {
-                    return PartialView("Index", await _linkRepository.AllLinksToListAsync());
+                    return PartialView("Index", await _linkRepository.AllLinksToListAsync(user));
                 }
                 return RedirectToAction("Index");
             }

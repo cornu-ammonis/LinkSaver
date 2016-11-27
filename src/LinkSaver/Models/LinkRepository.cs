@@ -72,6 +72,7 @@ namespace LinkSaver.Models
             Link link = new Link();
             link.url = linkCreationModel.url;
             link.Author = user;
+            link.IsPublic = linkCreationModel.IsPublic;
            
             //if user doesnt enter a category name
             if (linkCreationModel.category == null)
