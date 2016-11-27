@@ -114,6 +114,16 @@ namespace TestLibrary
             context.SaveChanges();
         }
 
+        [TestCase]
+        public async Task ReturnLinksForUser()
+        {
+            providerClass provider = new providerClass();
+            ILinkRepository repository = provider.giveRepository();
+            ApplicationDbContext context = provider.giveContext();
+            ApplicationUser user = 
+            IList<Link> testList =
+        }
+
 
     }
 }

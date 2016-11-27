@@ -19,9 +19,15 @@ namespace LinkSaver.Models
         }
 
         
-        async public Task<List<Link>> AllLinksToListAsync()
+        async public Task<List<Link>> AllLinksToListAsync(ApplicationUser user)
         {
-            return await _context.Links.Include<Link, Category>(l => l.category).ToListAsync();
+            List<Link> l_query = await
+                 (from l in _context.Links
+                  where l.Author == user
+                  orderby l.LinkId descending
+                  select l).Include<Link, Category>(l => l.category).ToListAsync();
+
+            return l_query;
         }
 
         async public Task<List<Link>> LinksByCategoryToListAsync(string categorySlug)
