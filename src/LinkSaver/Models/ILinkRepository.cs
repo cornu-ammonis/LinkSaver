@@ -8,7 +8,7 @@ namespace LinkSaver.Models
     public interface ILinkRepository
     {
         Task AddLinkToDatabaseAsync(Link link);
-        Task AddLinkToDatabaseAsync(LinkCreationViewModel linkCreationModel);
+        Task<ApplicationUser> AddLinkToDatabaseAsync(LinkCreationViewModel linkCreationModel, ApplicationUser user);
         Task DeleteLinkFromDatabaseAsync(int id);
 
         Task<Category> CreateOrRetrieveCategoryByName(string name);

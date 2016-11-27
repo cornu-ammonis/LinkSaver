@@ -61,11 +61,12 @@ namespace LinkSaver.Models
             await _context.SaveChangesAsync();
         }
 
-        async public Task AddLinkToDatabaseAsync(LinkCreationViewModel linkCreationModel)
+        async public Task<ApplicationUser> AddLinkToDatabaseAsync(LinkCreationViewModel linkCreationModel, ApplicationUser user)
         {
             Link link = new Link();
             link.url = linkCreationModel.url;
-
+            link.Author = user;
+           
             //if user doesnt enter a category name
             if (linkCreationModel.category == null)
             {
@@ -76,9 +77,11 @@ namespace LinkSaver.Models
             link.category.Links.Add(link);
             link.title = await RetrieveTitleFromPageAsync(link.prependUrl());
             AddOrUpdateCategory(link.category);
+            user.UserLinks.Add(link);
            _context.Links.Add(link);
            
            await _context.SaveChangesAsync();
+           return user;
         }
 
         public void AddOrUpdateCategory(Category category)

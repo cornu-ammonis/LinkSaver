@@ -10,6 +10,7 @@ using LinkSaver.Models;
 using myExtensions;
 using Microsoft.AspNetCore.Authorization;
 using LinkSaver.Models.LinkViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace LinkSaver.Controllers
 {
@@ -18,23 +19,30 @@ namespace LinkSaver.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILinkRepository _linkRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public LinksController(ApplicationDbContext context, ILinkRepository linkRepository)
+        public LinksController(ApplicationDbContext context, ILinkRepository linkRepository, 
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _linkRepository = linkRepository;
+            _userManager = userManager;
         }
 
         // GET: Links
       
         public async Task<IActionResult> Index()
         {
-            if(User.Identity.Name != "admin5@gmail.com")
+            ApplicationUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            _userManager.
+
+            if (User.Identity.Name != "admin5@gmail.com")
             {
                 return View("Blank");
             }
             if(Request.IsAjaxRequest())
             {
+               
                 return PartialView(await _linkRepository.AllLinksToListAsync());
             }
             else
@@ -84,7 +92,9 @@ namespace LinkSaver.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _linkRepository.AddLinkToDatabaseAsync(viewModel);
+                ApplicationUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+                user = await _linkRepository.AddLinkToDatabaseAsync(viewModel, user);
+                await _userManager.UpdateAsync(user);
                 if (Request.IsAjaxRequest())
                 {
                     return PartialView("Index", await _linkRepository.AllLinksToListAsync());

@@ -11,6 +11,7 @@ namespace LinkSaver.Models
         public string url { get; set; }
         public string title { get; set; }
         public Category category { get; set; }
+        public ApplicationUser Author { get; set; }
 
         public string prependUrl()
         {
