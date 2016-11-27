@@ -58,7 +58,8 @@ namespace LinkSaver.Models
           
             link.title = await RetrieveTitleFromPageAsync(link.url);
             _context.Add(link);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         async public Task AddLinkToDatabaseAsync(LinkCreationViewModel linkCreationModel)
