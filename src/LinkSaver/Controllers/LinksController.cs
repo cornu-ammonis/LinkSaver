@@ -56,7 +56,8 @@ namespace LinkSaver.Controllers
         // GET: Links by category
         public async Task<IActionResult> Category(string slug)
         {
-            CategoryLinkViewModel viewModel = new CategoryLinkViewModel(_linkRepository, slug);
+            CategoryLinkViewModel viewModel = new UserCategoryLinkViewModel(_linkRepository, slug,
+                await _userManager.FindByNameAsync(User.Identity.Name));
             
             return View(viewModel);
         }

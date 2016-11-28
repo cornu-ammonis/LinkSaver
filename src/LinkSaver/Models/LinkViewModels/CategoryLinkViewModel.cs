@@ -7,12 +7,13 @@ namespace LinkSaver.Models.LinkViewModels
 {
     public class CategoryLinkViewModel : LinkViewModel
     {
-        public CategoryLinkViewModel(ILinkRepository linkRepository, string catSlug)
-        {
-            category = linkRepository.RetrieveCategoryBySlug(catSlug);
-            PopulateLinks(linkRepository.LinksByCategoryToList(catSlug));
-        }
+       
 
         public Category category { get; private set; }
+
+        public void SetCategory(Category _category)
+        {
+            category = _category;
+        }
     }
 }

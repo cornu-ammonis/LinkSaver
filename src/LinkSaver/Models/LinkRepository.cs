@@ -51,6 +51,17 @@ namespace LinkSaver.Models
 
             return categoryLinks;
         }
+        public List<Link> UserLinksByCategoryToList(string categorySlug, ApplicationUser user)
+        {
+            List<Link> categoryLinks =
+                (from l in _context.Links
+                 where l.category.UrlSlug == categorySlug
+                 where l.Author == user
+                 orderby l.LinkId descending
+                 select l).Include<Link, Category>(l => l.category).ToList();
+
+            return categoryLinks;
+        }
 
         async public Task DeleteLinkFromDatabaseAsync(int id)
         {
