@@ -23,7 +23,7 @@ namespace LinkSaver.Models
         {
             List<Link> l_query = await
                  (from l in _context.Links
-                  where l.Author == user
+                  where l.Author == user || l.UserLinkSaves.Any(ul => ul.user == user)
                   orderby l.LinkId descending
                   select l).Include<Link, Category>(l => l.category).ToListAsync();
 
@@ -70,7 +70,8 @@ namespace LinkSaver.Models
                  where l.category.UrlSlug == categorySlug
                  where l.IsPublic || l.Author == user
                  orderby l.LinkId descending
-                 select l).Include<Link, Category>(l => l.category).ToList();
+                 select l).Include<Link, Category>(l => l.category).Include<Link, ApplicationUser>(l => l.Author).
+                 ToList();
 
             return categoryLinks;
         }
@@ -226,6 +227,34 @@ namespace LinkSaver.Models
             }
             return url;
 
+        }
+
+
+        public async Task<ApplicationUser> SavePostForUserAsync(int linkId, ApplicationUser user)
+        {
+            Link toSave = await _context.Links.SingleAsync(l => l.LinkId == linkId);
+            _context.Update(toSave);
+            UserLinkSave toAdd = new UserLinkSave();
+            toAdd.link = toSave;
+            toAdd.user = user;
+            toSave.UserLinkSaves.Add(toAdd);
+            user.UserLinkSaves.Add(toAdd);
+            _context.UserLinkSaves.Add(toAdd);
+           await _context.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task<ApplicationUser> UnsavePostForUserAsync(int linkId, ApplicationUser user)
+        {
+            Link toUnsave = await _context.Links.SingleAsync(l => l.LinkId == linkId);
+            UserLinkSave toRemove = await _context.UserLinkSaves.SingleAsync(ul => ul.link == toUnsave &&
+            ul.user == user);
+            _context.Update(toUnsave);
+            user.UserLinkSaves.Remove(toRemove);
+            toUnsave.UserLinkSaves.Remove(toRemove);
+            _context.Remove(toRemove);
+            await _context.SaveChangesAsync();
+            return user;
         }
     }
 }

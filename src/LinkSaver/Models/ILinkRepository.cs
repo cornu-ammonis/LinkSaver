@@ -25,5 +25,9 @@ namespace LinkSaver.Models
         List<Link> LinksByCategoryToList(string categorySlug);
         List<Link> UserLinksByCategoryToList(string categorySlug, ApplicationUser user);
         List<Link> PublicLinksByCategoryToList(string categorySlug, ApplicationUser user);
+
+        Task<ApplicationUser> SavePostForUserAsync(int linkId, ApplicationUser user);
+        Task<ApplicationUser> UnsavePostForUserAsync(int linkId, ApplicationUser user);
+
     }
 }

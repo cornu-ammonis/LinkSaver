@@ -10,5 +10,6 @@ namespace LinkSaver.Models
     public class ApplicationUser : IdentityUser
     {
         public List<Link> UserLinks { get; set; } = new List<Link>();
+        public List<UserLinkSave> UserLinkSaves { get; set; } = new List<UserLinkSave>();
     }
 }

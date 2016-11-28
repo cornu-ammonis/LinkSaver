@@ -17,6 +17,7 @@ namespace LinkSaver.Data
 
         public DbSet<Link> Links { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<UserLinkSave> UserLinkSaves { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -27,6 +28,19 @@ namespace LinkSaver.Data
             builder.Entity<Link>()
                 .HasOne(l => l.category)
                 .WithMany(c => c.Links);
+
+            builder.Entity<UserLinkSave>()
+                .HasKey(ul => new { ul.LinkId, ul.UserName });
+
+            builder.Entity<UserLinkSave>()
+                .HasOne(ul => ul.link)
+                .WithMany(l => l.UserLinkSaves)
+                .HasForeignKey(ul => ul.LinkId);
+
+            builder.Entity<UserLinkSave>()
+                .HasOne(ul => ul.user)
+                .WithMany(l => l.UserLinkSaves)
+                .HasForeignKey(ul => ul.UserName);
 
         }
     }

@@ -209,5 +209,12 @@ namespace LinkSaver.Controllers
         {
             return _context.Links.Any(e => e.LinkId == id);
         }
+
+
+        public async Task<IActionResult> SaveLink(int Id)
+        {
+           await _linkRepository.SavePostForUserAsync(Id, await _userManager.FindByNameAsync(User.Identity.Name));
+           return RedirectToAction("Index");
+        }
     }
 }

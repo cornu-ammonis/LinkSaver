@@ -15,6 +15,7 @@ namespace LinkSaver.Models
         public string title { get; set; }
         public Category category { get; set; }
         public ApplicationUser Author { get; set; }
+        public List<UserLinkSave> UserLinkSaves { get; set; } = new List<UserLinkSave>();
 
         [Display(Name = "Make public to other users?")]
         public bool IsPublic { get; set; } = false;
