@@ -25,7 +25,12 @@ namespace LinkSaver.ViewComponents
             {
                 if(await repository.CheckIfSavedAsync(link.LinkId, User.Identity.Name))
                 {
-                    return View("UnsaveButton", link);
+                    if (RouteData.Values["action"].ToString().ToLower().Contains("category"))
+                    {
+                        return View("UnsaveButton", link);
+                    }
+                    
+                    return View("UnsaveButtonIndex", link);
                 }
                 else
                 {

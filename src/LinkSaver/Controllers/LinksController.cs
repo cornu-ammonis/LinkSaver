@@ -214,6 +214,11 @@ namespace LinkSaver.Controllers
         public async Task<IActionResult> SaveLink(int Id)
         {
            await _linkRepository.SavePostForUserAsync(Id, await _userManager.FindByNameAsync(User.Identity.Name));
+            if(Request.IsAjaxRequest())
+            {
+                return PartialView("~/Views/Shared/Components/PublicLinkButtons/UnsaveButton.cshtml",
+                    await _linkRepository.RetrieveLinkByIdAsync(Id));
+            }
            return RedirectToAction("Index");
         }
 
@@ -221,6 +226,21 @@ namespace LinkSaver.Controllers
         {
             await _linkRepository.UnsavePostForUserAsync(Id, 
                 await _userManager.FindByNameAsync(User.Identity.Name));
+
+            if(Request.IsAjaxRequest())
+            {
+                if(Request.Headers["Referer"].ToString().ToLower().Contains("category") )
+                {
+                    return PartialView("~/Views/Shared/Components/PublicLinkButtons/SaveButton.cshtml", 
+                        await _linkRepository.RetrieveLinkByIdAsync(Id));
+                }
+                else
+                {
+                    return PartialView("Index", await _linkRepository.AllLinksToListAsync(
+                      await  _userManager.FindByNameAsync(User.Identity.Name)));
+                }
+                
+            }
 
             return RedirectToAction("Index");
         }

@@ -267,5 +267,10 @@ namespace LinkSaver.Models
         {
             return await _context.UserLinkSaves.AnyAsync(ul => ul.LinkId == linkId && ul.user.UserName == userName);
         }
+
+       public async Task<Link> RetrieveLinkByIdAsync(int linkId)
+        {
+            return await _context.Links.SingleAsync(l => l.LinkId == linkId);
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@model LinkSaver.Models.Link
 <div id="@Model.LinkId.ToString()">
     <a asp-action="UnsaveLink" asp-route-Id="@Model.LinkId" data-ajax="true" data-ajax-mode="replace-with"
-       data-ajax-update="#@Model.LinkId.ToString()">Unsave</a>
+       data-ajax-update="#content">Unsave</a>
 </div>

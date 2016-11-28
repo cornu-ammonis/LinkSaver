@@ -1,3 +1,5 @@
 ﻿@model LinkSaver.Models.Link
-
-<a asp-action="SaveLink" asp-route-Id="@Model.LinkId">Save</a>
+<div id="@Model.LinkId.ToString()">
+    <a asp-action="SaveLink" asp-route-Id="@Model.LinkId" data-ajax="true" data-ajax-mode="replace-with"
+       data-ajax-update="#@Model.LinkId.ToString()">Save</a>
+</div>
