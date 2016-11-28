@@ -23,7 +23,15 @@ namespace LinkSaver.ViewComponents
             }
             else
             {
-                return View("SaveButton", link);
+                if(await repository.CheckIfSavedAsync(link.LinkId, User.Identity.Name))
+                {
+                    return View("UnsaveButton", link);
+                }
+                else
+                {
+                    return View("SaveButton", link);
+                }
+               
             }
 
         }

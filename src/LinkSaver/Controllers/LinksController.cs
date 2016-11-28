@@ -216,5 +216,13 @@ namespace LinkSaver.Controllers
            await _linkRepository.SavePostForUserAsync(Id, await _userManager.FindByNameAsync(User.Identity.Name));
            return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> UnsaveLink(int Id)
+        {
+            await _linkRepository.UnsavePostForUserAsync(Id, 
+                await _userManager.FindByNameAsync(User.Identity.Name));
+
+            return RedirectToAction("Index");
+        }
     }
 }

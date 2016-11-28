@@ -24,7 +24,7 @@ namespace LinkSaver.Models
             List<Link> l_query = await
                  (from l in _context.Links
                   where l.Author == user || l.UserLinkSaves.Any(ul => ul.user == user)
-                  orderby l.LinkId descending
+                  orderby l.LinkId descending 
                   select l).Include<Link, Category>(l => l.category).ToListAsync();
 
             return l_query;
@@ -237,6 +237,7 @@ namespace LinkSaver.Models
             UserLinkSave toAdd = new UserLinkSave();
             toAdd.link = toSave;
             toAdd.user = user;
+            toAdd.UserName = user.UserName;
             toSave.UserLinkSaves.Add(toAdd);
             user.UserLinkSaves.Add(toAdd);
             _context.UserLinkSaves.Add(toAdd);
@@ -255,6 +256,11 @@ namespace LinkSaver.Models
             _context.Remove(toRemove);
             await _context.SaveChangesAsync();
             return user;
+        }
+
+        public async Task<bool> CheckIfSavedAsync(int linkId, string userName)
+        {
+            return await _context.UserLinkSaves.AnyAsync(ul => ul.LinkId == linkId && ul.user.UserName == userName);
         }
     }
 }

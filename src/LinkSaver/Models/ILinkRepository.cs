@@ -28,6 +28,7 @@ namespace LinkSaver.Models
 
         Task<ApplicationUser> SavePostForUserAsync(int linkId, ApplicationUser user);
         Task<ApplicationUser> UnsavePostForUserAsync(int linkId, ApplicationUser user);
+        Task<bool> CheckIfSavedAsync(int linkId, string userName);
 
     }
 }
