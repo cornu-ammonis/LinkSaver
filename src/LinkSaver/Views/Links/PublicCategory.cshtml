@@ -5,8 +5,8 @@
 }
 <div id="content">
     <h2>@Model.Links.Count.ToString() links found for category "@Model.category.Name"</h2>
-    <a asp-action="PublicCategory" asp-route-slug="@Model.category.UrlSlug" data-ajax="true" 
-       data-ajax-mode="replace-with" data-ajax-update="#content">[+]</a> Include Links From Other Users
+    <a asp-action="Category" asp-route-slug="@Model.category.UrlSlug" data-ajax="true" 
+       data-ajax-mode="replace-with" data-ajax-update="#content">[-]</a> Exclude Links From Other Users
     <div id="creatediv">
         <p>
             <a asp-action="Create" data-ajax="true" data-ajax-mode="replace-with" data-ajax-update="#creatediv">

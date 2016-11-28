@@ -58,8 +58,30 @@ namespace LinkSaver.Controllers
         {
             CategoryLinkViewModel viewModel = new UserCategoryLinkViewModel(_linkRepository, slug,
                 await _userManager.FindByNameAsync(User.Identity.Name));
+            if(Request.IsAjaxRequest())
+            {
+                return PartialView(viewModel);
+            }
+            else
+            {
+                return View(viewModel);
+            }
             
-            return View(viewModel);
+        }
+
+        public async Task<IActionResult> PublicCategory(string slug)
+        {
+            CategoryLinkViewModel viewModel = new PublicCategoryLinkViewModel(_linkRepository, slug,
+              await _userManager.FindByNameAsync(User.Identity.Name));
+
+            if(Request.IsAjaxRequest())
+            {
+                return PartialView(viewModel);
+            }
+            else
+            {
+                return View(viewModel);
+            }
         }
 
         // GET: Links/Details/5
