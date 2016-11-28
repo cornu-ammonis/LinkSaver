@@ -25,7 +25,8 @@ namespace LinkSaver.Models
                  (from l in _context.Links
                   where l.Author == user || l.UserLinkSaves.Any(ul => ul.user == user)
                   orderby l.LinkId descending 
-                  select l).Include<Link, Category>(l => l.category).ToListAsync();
+                  select l).Include<Link, Category>(l => l.category).Include<Link, ApplicationUser>
+                  (l => l.Author).ToListAsync();
 
             return l_query;
         }
@@ -36,7 +37,8 @@ namespace LinkSaver.Models
                 (from l in _context.Links
                  where l.category.UrlSlug == categorySlug
                  orderby l.LinkId descending //should return most recent links first
-                 select l).Include<Link, Category>(l => l.category).ToListAsync();
+                 select l).Include<Link, Category>(l => l.category).Include<Link, ApplicationUser>
+                 (l => l.Author).ToListAsync();
 
             return categoryLinks;
         }
@@ -47,7 +49,8 @@ namespace LinkSaver.Models
               (from l in _context.Links
                where l.category.UrlSlug == categorySlug
                orderby l.LinkId descending //should return most recent links first
-                 select l).Include<Link, Category>(l => l.category).ToList();
+                 select l).Include<Link, Category>(l => l.category).Include<Link, ApplicationUser>
+                 (l => l.Author).ToList();
 
             return categoryLinks;
         }
@@ -58,7 +61,8 @@ namespace LinkSaver.Models
                  where l.category.UrlSlug == categorySlug
                  where l.Author == user
                  orderby l.LinkId descending
-                 select l).Include<Link, Category>(l => l.category).ToList();
+                 select l).Include<Link, Category>(l => l.category).Include<Link, ApplicationUser>
+                 (l => l.Author).ToList();
 
             return categoryLinks;
         }
@@ -91,7 +95,8 @@ namespace LinkSaver.Models
             await _context.SaveChangesAsync();
         }
 
-        async public Task<ApplicationUser> AddLinkToDatabaseAsync(LinkCreationViewModel linkCreationModel, ApplicationUser user)
+        async public Task<ApplicationUser> AddLinkToDatabaseAsync
+            (LinkCreationViewModel linkCreationModel, ApplicationUser user)
         {
             Link link = new Link();
             link.url = linkCreationModel.url;
